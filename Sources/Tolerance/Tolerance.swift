@@ -1,5 +1,5 @@
-/// An absolute and relative allowance for numerical deviation.
-/// Closeness is symmetric but need not be transitive; it is not Equatable equality.
+
+
 public struct Tolerance<Scalar: FloatingPoint> {
     public let absolute: Scalar
     public let relative: Scalar
@@ -12,8 +12,8 @@ public struct Tolerance<Scalar: FloatingPoint> {
         self.relative = relative == 0 ? 0 : relative
     }
 
-    /// Tests |lhs-rhs| <= absolute + relative * max(|lhs|, |rhs|), avoiding overflow.
-    /// Equal infinities and signed zeros match. NaN and unequal infinities never match.
+
+
     public func contains(_ lhs: Scalar, _ rhs: Scalar) -> Bool {
         if lhs == rhs { return true }
         guard lhs.isFinite, rhs.isFinite else { return false }
