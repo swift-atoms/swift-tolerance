@@ -3,7 +3,6 @@
 public struct Tolerance<Scalar: FloatingPoint> {
     public let absolute: Scalar
     public let relative: Scalar
-    public typealias Error = Tolerance::Failure
 
     public init(absolute: Scalar = 0, relative: Scalar = 0) throws(Error) {
         guard absolute.isFinite, relative.isFinite, absolute >= 0, relative >= 0 else {

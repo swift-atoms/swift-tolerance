@@ -1,15 +1,15 @@
 import Tolerance
 import Testing
 
-@Suite struct ToleranceTests {
-    @Test func allowanceIsValidated() {
+@Suite struct `Tolerance measures allowed numerical deviation` {
+    @Test func `Allowances must be finite and nonnegative`() {
         for value in [-1.0, .infinity, .nan] {
-            #expect(throws: Tolerance::Failure.invalidAllowance) { try Tolerance(absolute: value) }
-            #expect(throws: Tolerance::Failure.invalidAllowance) { try Tolerance(relative: value) }
+            #expect(throws: Tolerance<Double>.Error.invalidAllowance) { try Tolerance(absolute: value) }
+            #expect(throws: Tolerance<Double>.Error.invalidAllowance) { try Tolerance(relative: value) }
         }
     }
 
-    @Test func exceptionalValuesAndNontransitivity() throws {
+    @Test func `Exceptional values are explicit and closeness need not be transitive`() throws {
         let exact = try Tolerance<Double>()
         #expect(exact.contains(.infinity, .infinity))
         #expect(exact.contains(-0.0, 0.0))
@@ -21,7 +21,7 @@ import Testing
         #expect(!allowance.contains(0, 2))
     }
 
-    @Test func overflowDoesNotTurnDistinctValuesIntoMatches() throws {
+    @Test func `Overflow does not turn distinct values into matches`() throws {
         let huge = Double.greatestFiniteMagnitude
         let allowance = try Tolerance<Double>(absolute: huge, relative: 0.5)
         #expect(!allowance.contains(huge, -huge))
