@@ -11,9 +11,9 @@ public struct Tolerance<Scalar: FloatingPoint> {
         self.absolute = absolute == 0 ? 0 : absolute
         self.relative = relative == 0 ? 0 : relative
     }
+}
 
-
-
+extension Tolerance {
     public func contains(_ lhs: Scalar, _ rhs: Scalar) -> Bool {
         if lhs == rhs { return true }
         guard lhs.isFinite, rhs.isFinite else { return false }
@@ -28,6 +28,6 @@ public struct Tolerance<Scalar: FloatingPoint> {
     }
 }
 
-extension Tolerance: Swift.Sendable where Scalar: Swift.Sendable {}
+extension Tolerance: Swift::Sendable where Scalar: Swift::Sendable {}
 
-extension Tolerance: Swift.Equatable {}
+extension Tolerance: Swift::Equatable {}

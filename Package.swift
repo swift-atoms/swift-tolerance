@@ -14,14 +14,14 @@ let package = Package(
     ],
     targets: [
         .target(name: "Tolerance", dependencies: [], path: "Sources/Tolerance"),
-        .target(name: "Tolerance Foundation Integration", dependencies: ["Tolerance"], path: "Sources/Tolerance Foundation Integration"),
-        .target(name: "Tolerance Test Support", dependencies: ["Tolerance"], path: "Tests/Support"),
-        .testTarget(name: "Tolerance Tests", dependencies: ["Tolerance", "Tolerance Foundation Integration", "Tolerance Test Support"], path: "Tests/Tolerance Tests"),
+        .target(name: "Tolerance Foundation Integration", dependencies: [.target(name: "Tolerance")], path: "Sources/Tolerance Foundation Integration"),
+        .target(name: "Tolerance Test Support", dependencies: [.target(name: "Tolerance")], path: "Tests/Support"),
+        .testTarget(name: "Tolerance Tests", dependencies: [.target(name: "Tolerance"), .target(name: "Tolerance Test Support")], path: "Tests/Tolerance Tests"),
     ],
     swiftLanguageModes: [.v6]
 )
 
-for target in package.targets where ![.system, .binary, .plugin].contains(target.type) {
+for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
     target.swiftSettings = (target.swiftSettings ?? []) + [
         .strictMemorySafety(),
         .enableUpcomingFeature("ExistentialAny"),
