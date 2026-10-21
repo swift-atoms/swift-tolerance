@@ -1,5 +1,5 @@
-import Tolerance
 import Testing
+import Tolerance
 
 @Suite struct `Tolerance measures allowed numerical deviation` {
     @Test func `Allowances must be finite and nonnegative`() {

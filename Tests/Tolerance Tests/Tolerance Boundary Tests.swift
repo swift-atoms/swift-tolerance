@@ -1,5 +1,5 @@
-import Tolerance
 import Testing
+import Tolerance
 
 @Suite
 struct `Tolerance boundaries` {

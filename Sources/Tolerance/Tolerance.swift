@@ -1,5 +1,3 @@
-
-
 public struct Tolerance<Scalar: FloatingPoint> {
     public let absolute: Scalar
     public let relative: Scalar
@@ -21,7 +19,8 @@ extension Tolerance {
         if difference.isFinite, difference <= absolute { return true }
         let scale = max(lhs.magnitude, rhs.magnitude)
         guard scale != 0 else { return true }
-        let scaledDifference = difference.isFinite
+        let scaledDifference =
+            difference.isFinite
             ? difference / scale
             : (lhs / scale - rhs / scale).magnitude
         return scaledDifference <= absolute / scale + relative
